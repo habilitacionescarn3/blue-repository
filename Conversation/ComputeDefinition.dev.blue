@@ -1,4 +1,5 @@
 name: Compute Definition
+type: Core/Marker
 description: >
   Reusable compute logic for Conversation/Compute steps.
 
