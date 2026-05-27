@@ -1,0 +1,23 @@
+name: Sequential Workflow
+type: Core/Handler
+description: |
+  Handler contract that implements deterministic workflow logic by executing a list of workflow steps in order after the
+  bound channel delivers a matching event. Sequential Workflow is the coordination workhorse: it lets a document express
+  behavior as Blue content, run computation steps, apply document updates, and emit follow-up events while still using
+  the Blue Contracts processor for patch validation, cascades, checkpoints, generalization, and gas.
+
+  Each step receives the same triggering event, the current contract context, and the results of earlier steps. Step
+  results are keyed by step name when a name is supplied. Steps are evaluated sequentially, so later steps can read
+  earlier step outputs. When an Update Document step previews or applies patches, later workflow steps must see the
+  updated working document state according to the host processor's working-document semantics; the final document commit
+  still occurs through the Blue Contracts processor and must preserve type soundness.
+
+  Workflow steps are not arbitrary side effects. Compute steps read and return data. Update Document steps request
+  patches. Trigger Event steps request event emission. Evaluate is a deterministic escape hatch. The handler's
+  observable effects are buffered and applied by the processor in the contract-result order defined by Blue Contracts.
+steps:
+  type: List
+  itemType: Coordination/Sequential Workflow Step
+  description: |
+    Ordered workflow steps. List order is execution order. Each step may read prior named step results. Mutation-producing
+    steps must use processor patch/event mechanisms rather than hidden side effects.

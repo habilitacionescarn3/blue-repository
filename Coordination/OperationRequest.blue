@@ -1,0 +1,24 @@
+name: Operation Request
+description: |
+  Coordination type `Operation Request`. This type is identity-bearing Blue content in the coordination package. It defines the
+  semantic role named by its `name` field and, when used as a contract/event/marker/source/status specialization,
+  should be interpreted according to its declared parent type `none` and its field definitions. The
+  description is intentionally part of the type identity: changing it changes what this type claims to mean.
+
+  A reader should treat this type as a precise domain term, not a loose label. Concrete processors, workflows, and
+  user interfaces should use the type BlueId and the fields declared on this node to decide compatibility, routing,
+  display, and audit behavior. If a document needs different semantics, it should define a different type rather
+  than reuse this one with incompatible meaning.
+operation:
+  type: Text
+  description: The name of the operation to invoke (must exist on the target).
+request:
+  description: |
+    Payload for the operation. Shape MUST match the target Operation’s `request` contract (scalars or structured nodes).
+document:
+  description: |-
+    Specifies the target document for the operation, typically containing the blueId of the document to operate on.
+allowNewerVersion:
+  description: |-
+    Controls concurrent modification handling. When true, processes the operation on the latest document version even if it changed. When false, only processes if the document still has the same blueId as specified.
+  type: Boolean

@@ -1,0 +1,14 @@
+name: Status Change
+type: Coordination/Event
+description: |
+  Event indicating that a document's application-level status has changed. The `status` field carries the new
+  Coordination/Document Status node. Status Change is useful for notifying participants, timelines, embedded parent
+  scopes, or external observers when a workflow transitions between pending, active, completed, failed, or custom status
+  states.
+
+  This event is descriptive. It does not itself change status; a workflow must still apply the corresponding Update
+  Document patch if the document state should change. Emitting Status Change alongside a patch creates an auditable event
+  that mirrors the state transition.
+status:
+  type: Coordination/Document Status
+  description: The new status node.

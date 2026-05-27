@@ -1,0 +1,25 @@
+name: Update Document
+type: Coordination/Sequential Workflow Step
+description: |
+  Workflow step that requests selected-document mutation by applying a list of Blue Contracts patch entries. Update
+  Document is the controlled gateway for state changes in a sequential workflow. It is the point where computed changeset
+  data becomes actual document mutation under the processor's rules.
+
+  Every patch must pass boundary validation, reserved-key protection, runtime insertion normalization, and Blue Language
+  validity checks. Each successful patch is applied in order. After each patch, the processor must run post-patch
+  type-soundness validation and dynamic generalization when required, then deliver Document Update cascades before the
+  next patch. If a patch would make the document invalid and no permitted generalization can repair the declared type,
+  the step fails and the processor terminates the executing scope according to the Blue Contracts fatal rules.
+
+  In a sequential workflow, an implementation may preview Update Document patches in a frozen WorkingDocument before the
+  buffered processor commit so that later steps can read the updated state without materializing the full document. That
+  preview must use the same immutable patch planning, conformance, generalization policy, and boundary rules as the final
+  processor commit. The step's `changeset` is therefore not a loose JSON patch list; it is a deterministic, gas-metered,
+  type-sound state transition request.
+changeset:
+  type: List
+  itemType: Core/Json Patch Entry
+  description: |
+    Ordered list of patch entries to apply through the Blue Contracts processor. The order is significant. Each patch is
+    validated and applied atomically with its post-patch type-soundness/generalization work and Document Update cascade
+    before the next patch is considered.

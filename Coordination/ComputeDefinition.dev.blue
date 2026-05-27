@@ -1,0 +1,24 @@
+name: Compute Definition
+type: Core/Marker
+description: |
+  Reusable package of BEX constants and functions for Coordination/Compute steps. A Compute Definition lets several
+  workflow steps share deterministic logic while keeping that logic in Blue content rather than in a host-language module
+  or source string. A Compute step may reference this definition and choose an `entry` function, or it may use local
+  functions and constants directly.
+
+  `constants` is a dictionary of literal or structured Blue values available through `$const`. `functions` is a dictionary
+  of named BEX function definitions. A function may declare arguments, evaluate statements, return a value, and use
+  constants or other permitted functions according to the BEX specification. Functions must be deterministic, bounded,
+  and gas-metered just like inline compute programs.
+
+  This type intentionally treats function bodies and operators as data. Their exact Blue structure is identity-bearing.
+  The type does not attempt to model every BEX operator as field-level schema; the BEX processor and BEX conformance
+  fixtures define the executable semantics. A reader should understand that a Compute Definition is a reusable, hashed,
+  inspectable compute library embedded in the document.
+constants:
+  type: Dictionary
+  description: |
+    Named constants available through `$const`. Keys are constant names; values are arbitrary Blue values.
+functions:
+  type: Dictionary
+  description: Named reusable BEX functions. Keys are function names; values are function definitions.

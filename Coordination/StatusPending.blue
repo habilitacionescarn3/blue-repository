@@ -1,0 +1,10 @@
+name: Status Pending
+type: Coordination/Document Status
+mode: pending
+description: |
+  Document Status specialization for a generic initial or waiting state. Status Pending means the document has not yet
+  entered its main operational phase because it is waiting for an initial event, prerequisite, participant response,
+  authorization, configuration, or other condition.
+
+  This status should not be interpreted as failure. It is a stable state in which the document is alive but not yet
+  active. Workflows may transition out of pending when the required event arrives or a precondition is satisfied.

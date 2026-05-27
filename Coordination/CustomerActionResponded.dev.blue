@@ -1,0 +1,21 @@
+name: Customer Action Responded
+type: Coordination/Response
+description: |
+  Response event returned after a customer-facing provider handled a Customer Action Requested event. It records which
+  action label the customer chose, any input collected from the user, and when the provider says the response occurred.
+
+  `actionLabel` should correspond to one of the requested action labels. `input` carries optional structured user input.
+  `respondedAt` records provider-supplied response time. The response should be correlated to the original request using
+  the inherited Response correlation fields when available.
+
+  This event is evidence that the provider obtained a customer decision. It does not by itself prove that the action is
+  authorized under every document policy; workflows may still inspect actor, source, input, and response details before
+  applying state changes.
+actionLabel:
+  type: Text
+  description: Label of the action selected by the user.
+input:
+  description: Optional user-provided payload for the selected action.
+respondedAt:
+  type: Common/Timestamp
+  description: Timestamp when the user decision was recorded by the bank.

@@ -1,0 +1,21 @@
+name: Agent Actor
+type: Coordination/Actor
+description: |
+  Actor specialization representing a non-human, delegated, automated, or AI-driven actor acting under authority granted
+  by another actor. An Agent Actor is not the principal; it is an automation participant operating on behalf of a
+  principal according to delegation rules maintained by a Timeline Provider, identity provider, platform, or other trust
+  anchor. This distinction is critical for safe AI-agent participation: the document can allow routine operations to be
+  automated while still requiring principal authorization for high-risk operations.
+
+  The `onBehalfOf` field identifies the actor whose authority the agent is using. Concrete agent types should add
+  identity-bearing fields describing the agent, the delegation document or grant, the permitted scope of action, the
+  provider that verified the delegation, and any session or execution context useful for audit. A document processor or
+  actor policy can then classify the event as delegated automation and decide whether the specific operation is allowed.
+
+  Agent Actor does not imply that every action by the agent is valid. The Timeline Provider is expected to reject agent
+  entries outside the delegation it recognizes, and Blue documents may independently enforce stricter actor policies. The
+  value of this type is verifiable attribution: observers can see that an action was automated, trace the principal on
+  whose behalf it was taken, and inspect the delegation chain without pretending the agent was the principal.
+onBehalfOf:
+  type: Coordination/Actor
+  description: Actor whose authority this agent is using.

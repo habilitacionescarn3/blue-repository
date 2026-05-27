@@ -1,0 +1,12 @@
+name: Document Bootstrap Failed
+type: Coordination/Response
+description: |
+  Response event indicating that a requested document bootstrap failed. The `reason` field explains why the provider
+  could not create or prepare the document, such as invalid input, missing channel binding, unsupported participant,
+  authorization failure, or provider error.
+
+  This event is a domain-level failure response. It does not necessarily imply a processor fatal error in the requesting
+  document. Workflows can use it to notify users, retry, store failure state, or select an alternate provider.
+reason:
+  type: Text
+  description: Failure reason.

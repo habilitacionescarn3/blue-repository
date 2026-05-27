@@ -7,7 +7,7 @@ contracts:
     type: MyOS/MyOS Timeline Channel
 
   startWorker:
-    type: Conversation/Operation
+    type: Coordination/Operation
     channel: ownerChannel
     description: Prompt the user to install a provided MyOS Package
     request:
@@ -16,11 +16,11 @@ contracts:
         description: MyOS Package
 
   startWorkerImpl:
-    type: Conversation/Sequential Workflow Operation
+    type: Coordination/Sequential Workflow Operation
     operation: startWorker
     steps:
       - name: Emit Install Prompt
-        type: Conversation/Trigger Event
+        type: Coordination/Trigger Event
         event:
           type: MyOS/Inform User To Install MyOS Package
           title: ChatGPT is requesting permission to launch a new agent

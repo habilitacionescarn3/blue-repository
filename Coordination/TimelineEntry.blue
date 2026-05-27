@@ -1,0 +1,49 @@
+name: Timeline Entry
+description: |
+  A Timeline Entry is one immutable event in an append-only Timeline. It records a message produced by the timeline
+  owner or an authorized actor, links to the previous entry, carries a provider-assigned timestamp, and includes actor and
+  source attribution. The entry is a Blue document, so its BlueId is a content address over the entry fields. The
+  `prevEntry` link creates a hash chain: modifying any historical entry changes its BlueId and breaks verification for
+  all subsequent entries that reference it.
+
+  The `timeline` field identifies the timeline and provider context to which the entry belongs. The `timestamp` is an
+  integer microsecond timestamp, generally assigned by the Timeline Provider. Timestamps establish deterministic ordering
+  across entries. Within a single timeline they should be monotonically increasing according to the provider's rules. In
+  multi-timeline documents, processors sort candidate entries by timestamp and deterministic tie-breakers such as channel
+  key and provider-specific ordering fields. Completeness guarantees from providers are necessary before processors treat
+  the ordering as complete.
+
+  The `message` field is the actual Blue event content being delivered to documents, such as an Operation Request, Status
+  Change, Chat Message, or domain-specific action. The `actor` field attributes the entry to a principal, agent, or
+  specialized actor. The optional `source` field records how the request reached the provider, such as browser session,
+  API call, document request, or blockchain transaction. A processor should never infer actor/source semantics from the
+  message body when these fields are present; the provider's attribution is the auditable claim.
+timeline:
+  type: Coordination/Timeline
+  description: The timeline this entry belongs to.
+prevEntry:
+  description: |
+    Reference to the previous Timeline Entry in the same timeline. The first entry may omit this field or use an explicit
+    provider-defined beginning marker. Every later entry should reference the BlueId of its immediate predecessor. This
+    creates the tamper-evident chain: modifying a historical entry changes that entry's BlueId and invalidates the
+    `prevEntry` reference held by its successor.
+message:
+  description: |
+    The event payload recorded in this entry. It may be any Blue node, but concrete Timeline Channels and workflows usually
+    expect a subtype of Coordination/Event such as Operation Request, Chat Message, Status Change, or a domain event.
+timestamp:
+  type: Integer
+  description: |
+    Provider-assigned integer timestamp in microseconds since Unix epoch unless a concrete timeline provider defines a
+    stricter compatible representation. The timestamp is used for deterministic ordering across entries and for provider
+    completeness guarantees. Once a provider guarantees no entries before T, future entries must be assigned timestamps
+    greater than or equal to T.
+actor:
+  type: Coordination/Actor
+  description: |
+    Attribution of who or what caused this entry. This field is the provider's claim about principal versus agent action
+    and is the basis for Actor Policy enforcement and audit. It should be a Coordination/Actor specialization.
+source:
+  description: |
+    Optional provenance of how the action reached the provider, such as Browser Session, API Call, Document Request, or
+    blockchain transaction. Source complements actor attribution and can be used by policy rules.

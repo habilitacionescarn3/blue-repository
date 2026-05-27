@@ -1,0 +1,16 @@
+name: Chat Message
+type: Coordination/Event
+description: |
+  Simple coordination event representing a human-readable message exchanged through a document or timeline. Chat Message
+  is useful for informal communication, notifications, and audit-visible commentary when the message itself is not a
+  structured operation request.
+
+  The `message` field contains the text shown to participants. Because it is Blue content, exact text, whitespace, and
+  Unicode code points are identity-bearing. If a chat message is placed in a Timeline Entry, actor and source attribution
+  belong to the Timeline Entry, not to this event type.
+
+  Chat Message should not be used when the document needs deterministic machine-actionable semantics. In that case, use a
+  concrete Operation Request, Status Change, Customer Action event, or domain-specific event type with typed fields.
+message:
+  type: Text
+  description: The textual content of the chat message.

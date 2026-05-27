@@ -1,0 +1,11 @@
+name: Status Failed
+type: Coordination/Document Status
+mode: terminated
+description: |
+  Document Status specialization for an unsuccessful final application state. Status Failed means the document's intended
+  process could not complete due to an error, rejection, timeout, invalid input, policy failure, or other domain-specific
+  reason.
+
+  This status is not the same as processor fatal termination, although a processor fatal may cause a document to set a
+  failed status if its workflows do so. It is a domain-level signal to participants that the document's goal was not
+  achieved.

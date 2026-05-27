@@ -1,0 +1,20 @@
+name: Principal Actor
+type: Coordination/Actor
+description: |
+  Actor specialization representing direct action by a principal exercising their own authority. A principal is the
+  person, organization, account holder, or other primary identity that owns or controls the timeline, channel, account,
+  or document context in which the event was produced. A Principal Actor means the Timeline Provider or event source is
+  asserting that the action was initiated through a mechanism it treats as direct principal control, such as an
+  authenticated user interface session, a principal-owned API credential, or another provider-approved direct-control
+  channel.
+
+  This type is the base identity for policies that require human or principal authorization. A policy that says an
+  operation requires a principal actor is saying that delegated automation is not enough: the action must be attributed
+  to the principal themselves or to a provider-defined specialization of Principal Actor. Provider-specific principal
+  actor types should refine this type and include enough evidence for auditing, such as UI session details,
+  authentication strength, API credential identity, or regulatory identity verification level.
+
+  This type does not itself prove that the principal was physically present, that a particular authentication method was
+  used, or that a legal signature occurred. Those assertions belong in concrete subtypes. This base type only provides
+  the nominal category used by actor-policy matching and by documents that need to distinguish principal authority from
+  delegated agent authority.

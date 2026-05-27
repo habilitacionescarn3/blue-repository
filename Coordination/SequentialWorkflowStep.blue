@@ -1,0 +1,15 @@
+name: Sequential Workflow Step
+description: |
+  Abstract base type for a single step in a Sequential Workflow. A step is a deterministic unit of workflow behavior. It
+  may compute data, request document patches, or request event emission depending on its concrete subtype. This base
+  type exists so workflow step lists can be typed uniformly while allowing concrete steps such as Compute, Update
+  Document, and Trigger Event to define their own fields and semantics.
+
+  A step executes in the context of a workflow invocation. It can read the triggering event, previous step results, the
+  current contract, and the current working document view made available by the workflow processor. A step must not
+  bypass the processor's mutation rules. If it wants to change the document, it must produce patches consumed by an
+  Update Document step or by the handler result machinery.
+
+  Step identity matters. The exact step type, fields, compute program, and descriptions are Blue content and affect the
+  document's BlueId. A processor must execute only supported step subtypes and must fail or treat unsupported step types
+  according to the surrounding handler/runtime semantics.

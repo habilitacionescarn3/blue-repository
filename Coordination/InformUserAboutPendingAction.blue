@@ -1,0 +1,31 @@
+name: Inform User About Pending Action
+type: Coordination/Event
+description: |
+  Event requesting that a user or user-facing system be informed about a pending action required by the document. It is
+  designed for workflows that need human intervention: signing, approval, authorization, input collection, consent,
+  payment setup, selection, or another operation exposed by the document.
+
+  The event names the `operation` the user should run, supplies a `title` and `message` suitable for UI display, names the
+  `channel` on which the follow-up is expected, and may include an `expectedRequest` shape. A UI, bank, assistant, or
+  agent can use this event to render a pending-action card and later submit an Operation Request through the correct
+  channel.
+
+  This event does not force the user to act and does not mutate the document. It is a communication artifact that makes a
+  workflow's next required external action explicit and auditable.
+operation:
+  type: Text
+  description: |-
+    The name of the operation defined in the document that the user is required to run to fulfill the pending action.
+title:
+  type: Text
+  description: |-
+    A short, user-facing title describing the required action (e.g., "Payment Setup Required", "Agreement Required").
+message:
+  type: Text
+  description: Human-readable explanation of what is needed and relevant context.
+channel:
+  type: Text
+  description: |
+    Contracts-map key of the channel in this scope expected to receive the follow-up that triggers the required operation.
+expectedRequest:
+  description: The expected request payload structure for the operation’s request.

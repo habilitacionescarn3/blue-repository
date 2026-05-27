@@ -1,0 +1,17 @@
+name: Trigger Event
+type: Coordination/Sequential Workflow Step
+description: |
+  Workflow step that requests emission of a Blue event from the current workflow invocation. Trigger Event constructs or
+  resolves an `event` payload and adds it to the handler result so the Blue Contracts processor can record, enqueue,
+  route, bridge, and gas-charge it according to the runtime event rules.
+
+  Trigger Event does not directly deliver the event to arbitrary channels. Emitted events enter the current scope's
+  Triggered FIFO or root outbox according to processor semantics. Local Triggered delivery occurs at the scope's FIFO
+  drain phase, not immediately at the moment this step is evaluated. Embedded child emissions may be bridged to a parent
+  through Embedded Node Channels if configured.
+
+  The event payload must be a valid Blue node. Invalid event construction causes runtime failure before successful emit
+  gas is charged. If expression/template processing is used to construct the event, that compute work is charged
+  separately from the processor's event emission and routing charges.
+event:
+  description: The event payload to enqueue (any Blue node).

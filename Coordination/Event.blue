@@ -1,0 +1,15 @@
+name: Event
+description: |
+  Base coordination type for Blue events delivered to channels, emitted by handlers, or recorded inside timeline entries.
+  An Event is a piece of meaning that may cause a document to react. It is not itself a transport envelope, a timeline
+  entry, or a processing result; those are separate structures. Concrete event subtypes define the semantic fields
+  necessary for matching and handling.
+
+  Events are identity-bearing Blue content. If an event is emitted, stored in a checkpoint, or included in a timeline
+  entry, its content and type determine its identity. The Coordination model treats events as read-only during
+  processing. Handlers may emit new event nodes, but document mutation must happen through Update Document patches rather
+  than by mutating event objects.
+
+  Event is intentionally broad. Request, Response, Lifecycle Event, Status Change, Chat Message, Customer Action events,
+  and domain-specific operation messages can all refine it. A concrete channel or workflow should describe which event
+  subtype it accepts and which fields are required for deterministic processing.
