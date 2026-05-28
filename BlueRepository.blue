@@ -37285,21 +37285,48 @@ packages:
                 items:
                   - name: Update Bootstrap Status
                     type:
-                      blueId: FuD8hYGXvwBJGBzXhFB6DVtWHawt8hbpM6yT94H4p7cZ
-                    changeset:
+                      blueId: MXnjrsiUgKPkinuRCVXEmnsBJhESt7HYZQPJH1eJvnJ
+                    do:
                       items:
-                        - op:
-                            type:
-                              blueId: DLRQwz7MQeCrzjy9bohPNwtCxKEBbKaMK65KBrwjfG6K
-                            value: replace
-                          path:
-                            type:
-                              blueId: DLRQwz7MQeCrzjy9bohPNwtCxKEBbKaMK65KBrwjfG6K
-                            value: /bootstrapStatus
-                          val:
-                            type:
-                              blueId: DLRQwz7MQeCrzjy9bohPNwtCxKEBbKaMK65KBrwjfG6K
-                            value: ${event.status}
+                        - $if:
+                            cond:
+                              $not:
+                                $is:
+                                  node:
+                                    $event:
+                                      type:
+                                        blueId: DLRQwz7MQeCrzjy9bohPNwtCxKEBbKaMK65KBrwjfG6K
+                                      value: /
+                                  pattern:
+                                    type:
+                                      blueId: GXbF9ycv87y69kutDUmACbmeme7dGBSPw47fMQefvDPx
+                            then:
+                              items:
+                                - $return:
+                                    changeset:
+                                      items: []
+                                    events:
+                                      items: []
+                        - $appendChange:
+                            op:
+                              type:
+                                blueId: DLRQwz7MQeCrzjy9bohPNwtCxKEBbKaMK65KBrwjfG6K
+                              value: replace
+                            path:
+                              type:
+                                blueId: DLRQwz7MQeCrzjy9bohPNwtCxKEBbKaMK65KBrwjfG6K
+                              value: /bootstrapStatus
+                            val:
+                              $event:
+                                type:
+                                  blueId: DLRQwz7MQeCrzjy9bohPNwtCxKEBbKaMK65KBrwjfG6K
+                                value: /status
+                        - $return:
+                            changeset:
+                              $changeset:
+                                type:
+                                  blueId: 4EzhSubEimSQD3zrYHRtobfPPWntUuhEz8YcdxHsi12u
+                                value: true
         versions:
           - repositoryVersionIndex: 0
             typeBlueId: AP71nQ7g7Geo6LEKJ9cQVBhZJUDdcKY8z8S2bAw62RAU
