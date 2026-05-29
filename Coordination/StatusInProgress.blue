@@ -2,8 +2,4 @@ name: Status In Progress
 type: Coordination/Document Status
 mode: active
 description: |
-  Document Status specialization for active processing. Status In Progress means the document is in its main operational
-  phase and may continue to accept events, update state, emit requests, wait for responses, and process embedded scopes.
-
-  This status is appropriate for workflows that involve multiple sequential or asynchronous steps over time. It does not
-  imply success or failure; it means the document has work underway and has not reached a final application-level state.
+  Concrete Document Status meaning work has started and is actively being processed, but no terminal success or failure has been reached. The fixed mode is `inProgress`.

@@ -69,19 +69,19 @@ contracts:
       kind: /kind
 
   payerChannel:
-    type: Core/Channel
+    type: Channel
 
   payeeChannel:
-    type: Core/Channel
+    type: Channel
     # May remain unbound initially if payee/recipient is unresolved.
 
   guarantorChannel:
-    type: Core/Channel
+    type: Channel
 
   initLifecycleChannel:
-    type: Core/Lifecycle Event Channel
+    type: Lifecycle Event Channel
     event:
-      type: Core/Document Processing Initiated
+      type: Document Processing Initiated
 
   initialize:
     type: Coordination/Sequential Workflow

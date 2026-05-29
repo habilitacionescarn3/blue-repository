@@ -14,9 +14,9 @@ contracts:
     description: Granter/owner’s timeline (direct grant-document revoke lives here).
 
   initLifecycleChannel:
-    type: Core/Lifecycle Event Channel
+    type: Lifecycle Event Channel
     event:
-      type: Core/Document Processing Initiated
+      type: Document Processing Initiated
 
   revoke:
     type: Coordination/Operation

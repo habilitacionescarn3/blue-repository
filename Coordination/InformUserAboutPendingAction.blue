@@ -1,31 +1,28 @@
 name: Inform User About Pending Action
 type: Coordination/Event
 description: |
-  Event requesting that a user or user-facing system be informed about a pending action required by the document. It is
-  designed for workflows that need human intervention: signing, approval, authorization, input collection, consent,
-  payment setup, selection, or another operation exposed by the document.
+  Workflow/operation type that asks the system to notify a user about a pending action. It is typically used when a
+  document needs human attention: approval, consent, data entry, signature, correction, or review.
 
-  The event names the `operation` the user should run, supplies a `title` and `message` suitable for UI display, names the
-  `channel` on which the follow-up is expected, and may include an `expectedRequest` shape. A UI, bank, assistant, or
-  agent can use this event to render a pending-action card and later submit an Operation Request through the correct
-  channel.
-
-  This event does not force the user to act and does not mutate the document. It is a communication artifact that makes a
-  workflow's next required external action explicit and auditable.
+  This type describes the notification request, not proof that the user has responded. A response should be represented
+  by Customer Action Responded or another explicit event. The `expectedRequest` field can help the UI or notification
+  system explain what kind of response should be sent back.
 operation:
   type: Text
-  description: |-
-    The name of the operation defined in the document that the user is required to run to fulfill the pending action.
+  description: |
+    Operation name associated with the pending action.
 title:
   type: Text
-  description: |-
-    A short, user-facing title describing the required action (e.g., "Payment Setup Required", "Agreement Required").
+  description: |
+    Short notification title.
 message:
   type: Text
-  description: Human-readable explanation of what is needed and relevant context.
+  description: |
+    Detailed notification body.
 channel:
   type: Text
   description: |
-    Contracts-map key of the channel in this scope expected to receive the follow-up that triggers the required operation.
+    Channel or delivery route to use for informing the user.
 expectedRequest:
-  description: The expected request payload structure for the operation’s request.
+  description: |
+    Shape or description of the response expected from the user.

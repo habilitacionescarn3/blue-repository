@@ -5,7 +5,7 @@ description: |
   change under proposal state so another participant or policy-controlled workflow can later accept or reject it.
 
   Propose Change is used when a document requires review, approval, negotiation, or human consent before applying a
-  mutation. The request shape is Coordination/Change Request, including a summary and optional structured sectionChanges.
+  mutation. The request shape is Workflows/Change Request, including a summary and optional structured sectionChanges.
   The operation itself only declares the action; the paired Propose Change Workflow implements storage and validation.
 request:
-  type: Coordination/Change Request
+  type: Workflows/Change Request

@@ -1,10 +1,10 @@
 name: Lifecycle Event
 type: Coordination/Event
 description: |
-  Coordination event representing a processor lifecycle transition such as document processing initiation or termination.
-  Lifecycle Event is distinct from application-level status changes. It is produced or routed by the processor or by
-  lifecycle-aware workflow logic to indicate that a processing scope entered a lifecycle phase.
+  Base event type for processor lifecycle notifications. Lifecycle events describe processor-state transitions such as
+  initialization, termination, bootstrap completion, or failure. They are distinct from domain events such as chat
+  messages or operation requests.
 
-  Concrete lifecycle event types should define the specific phase and fields. A lifecycle event may be useful for
-  initialization workflows, audit logs, parent-scope bridging, or user notifications. It should not be confused with the
-  Blue Contracts processor's internal marker state, although lifecycle events often correspond to marker writes.
+  Lifecycle events are emitted by processor or workflow infrastructure to make state transitions observable and
+  auditable. A Blue document may listen for them through Lifecycle Event Channels or domain-specific coordination
+  workflows, but the event itself remains passive Blue content.

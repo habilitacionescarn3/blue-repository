@@ -2,7 +2,7 @@ name: Change Workflow
 type: Coordination/Sequential Workflow Operation
 description: Applies a requested changeset immediately to the document.
 request:
-  type: Coordination/Change Request
+  type: Workflows/Change Request
   description: Expected request payload for this workflow.
 steps:
   - name: Prepare
@@ -16,7 +16,7 @@ steps:
         expr:
           changeset: []
           events:
-            - type: Coordination/Proposed Change Invalid
+            - type: Workflows/Proposed Change Invalid
               reason:
                 $var: reason
       asList:
@@ -252,7 +252,7 @@ steps:
                     args:
                       val:
                         $var: section
-                - type: Coordination/Document Section
+                - type: Workflows/Document Section
                   relatedContracts:
                     $choose:
                       cond:

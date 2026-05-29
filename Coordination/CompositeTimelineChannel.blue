@@ -1,22 +1,18 @@
 name: Composite Timeline Channel
-type: Core/Channel
+type: Channel
 description: |
-  Channel contract that composes several same-scope Timeline Channel contracts into a single union channel. It matches an
-  incoming event when any child channel named in `channels` would match. This is useful when a workflow should react to a
-  group of timelines through one handler binding while preserving each child timeline's individual identity,
-  checkpointing, and provider semantics.
+  Channel contract that groups several same-scope Timeline Channels into one union channel. A Composite Timeline
+  Channel matches when any referenced child channel would accept the delivered event. It is useful when a workflow
+  should react to a family of participant timelines while binding handlers to one logical channel key.
 
-  Composite Timeline Channel does not create a new global timeline and does not impose consensus over the child
-  timelines. It is a routing convenience inside a document scope. Completeness and ordering must still be handled by the
-  feeder/provider layer and by the underlying child channels. The composite channel should adapt or pass through the
-  matched child channel's payload in a deterministic way defined by the concrete implementation or profile.
-
-  The `channels` list contains contract-map keys in the same scope. The keys are ordered list content, but matching should
-  remain deterministic regardless of notification arrival order. If more than one child channel could accept the same
-  event, the processor must use the supported channel semantics and deterministic ordering rules to choose or deliver
-  consistently.
+  This type does not create global consensus and does not collapse the child timelines into one storage log. Each child
+  timeline retains its provider, checkpoint, completeness, actor attribution, and trust model. The composite only
+  simplifies routing inside the document. A correct feeder/processor must still preserve deterministic ordering across
+  the relevant timelines using provider completeness guarantees and the Blue Contracts checkpoint model.
 channels:
   type: List
   itemType: Text
   description: |
-    List of contracts-map keys (Text) of channels in the same scope to compose (union). Each entry must name an existing Channel contract.
+    Same-scope contract-map keys of Timeline Channel contracts included in this composite. The list order is not a
+    cross-timeline ordering rule; event ordering must be established by the feeder/provider layer and deterministic
+    processor sorting.

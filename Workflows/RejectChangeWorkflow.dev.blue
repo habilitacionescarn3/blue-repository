@@ -31,7 +31,7 @@ steps:
           expr:
             changeset: []
             events:
-              - type: Coordination/Proposed Change Invalid
+              - type: Workflows/Proposed Change Invalid
                 reason:
                   $concat:
                     - no proposed change at

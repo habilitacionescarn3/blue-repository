@@ -1,17 +1,11 @@
 name: Response
 type: Coordination/Event
 description: |
-  Base event type for a response to a prior Request. A Response links back to the request it answers through the
-  `inResponseTo` correlation object. This lets documents match an asynchronous answer to the original action, detect
-  stale or duplicate responses, and keep audit trails across multiple participants and timelines.
+  Base event/content type for responses to requests. A Response links back to a Request through `inResponseTo` and may
+  be specialized by concrete response types that define status, result, error, payload, or participant-specific fields.
 
-  The correlation should include at least the original requestId, and may include the incoming event or a reference to it
-  when the whole workflow was triggered by another event. The response payload is defined by concrete response subtypes,
-  such as Customer Action Responded, Document Bootstrap Completed, or Document Bootstrap Failed.
-
-  Response is not a guarantee that the requested action succeeded. It only says this event is semantically an answer to a
-  request. Concrete response fields and type names must indicate whether the result was successful, failed, partial,
-  rejected, or still pending.
+  Response is intentionally generic. It provides correlation semantics only; domain workflows decide whether the
+  response is accepted, whether it completes a pending action, and what document changes or events follow.
 inResponseTo:
   type:
     name: Correlation
@@ -21,3 +15,6 @@ inResponseTo:
       description: The 'requestId' from the specific Request event this is a response to.
     incomingEvent:
       description: An event which initiated the entire workflow. Normally just blueId of it.
+  description: |
+    Reference or request identifier for the request being answered. Concrete response types may require a full Request
+    node, a requestId text value, or another deterministic correlation object.

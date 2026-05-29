@@ -2,7 +2,7 @@ name: Propose Change Workflow
 type: Coordination/Sequential Workflow Operation
 description: Stores a proposed change under /proposedChange{postfix}.
 request:
-  type: Coordination/Change Request
+  type: Workflows/Change Request
   description: Expected request payload for this workflow.
 postfix:
   type: Text
@@ -44,7 +44,7 @@ steps:
           expr:
             changeset: []
             events:
-              - type: Coordination/Proposed Change Invalid
+              - type: Workflows/Proposed Change Invalid
                 reason: summary is missing
       - $returnIf:
           cond:
@@ -55,7 +55,7 @@ steps:
           expr:
             changeset: []
             events:
-              - type: Coordination/Proposed Change Invalid
+              - type: Workflows/Proposed Change Invalid
                 reason:
                   $concat:
                     - proposed change already exists at

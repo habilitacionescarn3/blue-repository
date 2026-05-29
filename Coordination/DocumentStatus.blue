@@ -1,20 +1,13 @@
 name: Document Status
 description: |
-  Base type for document lifecycle/status indicators used by coordination documents. A Document Status communicates the
-  high-level state of a document to participants, user interfaces, agents, and workflows. It is not the same as the Blue
-  Contracts processor's internal lifecycle markers; it is application-level state chosen by the document author.
+  Base type for document status markers. A Document Status summarizes the current lifecycle or business state of a
+  coordination document in a compact, machine-readable form.
 
-  The `mode` field gives a coarse lifecycle phase. `pending` means the document is waiting for a prerequisite or initial
-  action. `active` means the document is currently operating and processing events. `terminated` means the application
-  process represented by the document has reached a final conclusion. Concrete statuses refine these categories with
-  domain-specific meaning.
-
-  Status nodes are Blue content and can be used in patches, events, and workflow conditions. A document may use custom
-  status types as long as downstream workflows and participants understand them.
+  Concrete statuses such as pending, in progress, completed, and failed specialize this type by fixing the `mode` field.
+  Status values are Blue content: changing status changes document identity and may trigger Document Update channels or
+  workflows.
 mode:
   type: Text
   description: |
-    Defines the high-level phase of the document's lifecycle. Must be one of:
-      pending: The document is waiting for a pre-condition before its core logic begins.
-      active: The document is in its main operational phase, actively processing events.
-      terminated: The document has reached a final, conclusive state.
+    Canonical status mode text. Concrete status types fix this value, for example `pending`, `inProgress`, `completed`,
+    or `failed`.

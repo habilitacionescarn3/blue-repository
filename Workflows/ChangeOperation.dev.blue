@@ -5,11 +5,11 @@ description: |
   for contexts where the caller is already authorized to request the change and the document policy allows direct
   application.
 
-  The operation's `request` shape is Coordination/Change Request. The corresponding Change Workflow validates the request,
+  The operation's `request` shape is Workflows/Change Request. The corresponding Change Workflow validates the request,
   blocks forbidden `/contracts` modifications when Contracts Change Policy requires sectionChanges, rejects attempts to
   mutate proposal state recursively, and then applies the changes through Update Document.
 
   Use this operation when immediate mutation is acceptable. Use Propose Change Operation followed by Accept or Reject when
   changes must be reviewed before becoming document state.
 request:
-  type: Coordination/Change Request
+  type: Workflows/Change Request

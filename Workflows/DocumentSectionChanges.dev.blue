@@ -12,11 +12,11 @@ description: |
   contract changes belong together.
 add:
   type: List
-  itemType: Coordination/Document Section Change Entry
+  itemType: Workflows/Document Section Change Entry
   description: New sections to create with their Document Section and contracts.
 modify:
   type: List
-  itemType: Coordination/Document Section Change Entry
+  itemType: Workflows/Document Section Change Entry
   description: Existing sections to update with a full contracts map.
 remove:
   type: List

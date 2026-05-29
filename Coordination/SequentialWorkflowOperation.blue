@@ -1,19 +1,15 @@
 name: Sequential Workflow Operation
 type: Coordination/Sequential Workflow
 description: |
-  Convenience handler pattern that implements a named Operation using a Sequential Workflow. The `operation` field names
-  the Operation marker in the same scope that this workflow implements. When the operation's channel delivers an
-  Operation Request for that operation, this handler runs its configured steps to validate the request, compute results,
-  update document state, and emit follow-up events.
+  Operation contract whose implementation is a Sequential Workflow. It connects a named operation request to a workflow
+  handler: when the configured channel accepts an event for the operation, the workflow steps run deterministically and
+  produce processor effects.
 
-  This type ties the document's public action surface to executable workflow logic. The Operation marker explains what
-  request shape the document accepts and which channel receives invocations; Sequential Workflow Operation supplies the
-  deterministic implementation. Keeping those pieces as Blue content lets participants inspect and hash both the API
-  surface and the implementation.
-
-  The workflow remains subject to all Blue Contracts processor rules: same-scope handler binding, dispatch snapshots,
-  boundary checks, Update Document cascades, type generalization, actor/source policies, checkpoints, termination, and gas.
+  This type is useful for common document-owned behavior such as submitting a request, validating inputs, building a
+  changeset with Compute, applying it with Update Document, and emitting follow-up events. It keeps operation logic in
+  Blue content so the operation can be inspected, versioned, hashed, and transported with the document.
 operation:
   type: Text
   description: |
-    The name of the Operation this handler implements. Must reference an Operation defined in the same scope.
+    Operation metadata for this workflow operation, including request shape and channel binding. Concrete runtimes may
+    inline this or reference a same-scope Operation contract.

@@ -5,7 +5,7 @@ description: |
   this structured entry into deterministic `/contracts` patches.
 
   The `sectionKey` is the key under `/contracts` for the Document Section marker. The `section` node should be a
-  Coordination/Document Section whose `relatedContracts` corresponds to the keys in `contracts`, unless the workflow
+  Workflows/Document Section whose `relatedContracts` corresponds to the keys in `contracts`, unless the workflow
   fills or normalizes that relationship. The `contracts` map contains the actual contract nodes to add or replace for
   the section.
 
@@ -15,11 +15,11 @@ sectionKey:
   type: Text
   description: Contracts key under /contracts for the Document Section marker.
 section:
-  type: Coordination/Document Section
+  type: Workflows/Document Section
   description: |-
-    Document Section contract node; must include type Coordination/Document Section and relatedContracts should list keys in contracts.
+    Document Section contract node; must include type Workflows/Document Section and relatedContracts should list keys in contracts.
 contracts:
   type: Dictionary
   keyType: Text
-  valueType: Core/Contract
+  valueType: Contract
   description: Map of contractKey -> contract node to add or replace for this section.

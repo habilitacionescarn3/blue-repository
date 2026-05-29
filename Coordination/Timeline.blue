@@ -1,26 +1,33 @@
 name: Timeline
 description: |
-  A Timeline is an append-only, tamper-evident sequence of Timeline Entries representing the actions, statements,
-  observations, and commitments associated with one timeline owner or provider context. Conceptually, it is a personal or
-  institutional ledger: Alice may have a timeline, a bank may have a timeline, an AI agent may have a timeline, and a
-  service may have a timeline. A Blue document can interact with multiple timelines without requiring global consensus;
-  each timeline remains an independently maintained perspective that composes with others through deterministic
-  processing rules.
+  A Timeline is an append-only, tamper-evident personal or institutional event log. It records entries associated with
+  one timeline identity, account, actor, service, organization, document, or provider-defined context. It can be used
+  as private storage, shared selectively with other parties, made public, or connected to Blue documents through
+  Timeline Channels. Blue document processing is one use case of timelines, not the definition of a timeline.
 
-  A Timeline is expected to be maintained by a Timeline Provider or equivalent storage mechanism. The provider assigns
-  monotonically ordered timestamps, stores entries immutably, verifies the timeline owner's identity, records actor and
-  source attribution, and provides completeness guarantees to processors. A completeness guarantee is a binding statement
-  such as: there are no entries with timestamp less than T, and future entries accepted by this provider will have
-  timestamp greater than or equal to T. This is what lets independent processors know they have a complete view of all
-  relevant timeline events up to a deterministic processing boundary.
+  A Timeline Provider supplies infrastructure for timelines. Its core responsibilities are to authenticate and
+  authorize parties that append entries to a timeline, store entries in append-only order, assign or record ordering
+  timestamps, link entries to previous entries where the timeline design requires a hash chain, expose entries to
+  authorized readers, and issue completeness/finality guarantees. A provider generally does not understand the business
+  meaning of every message. Someone may place arbitrary Blue messages on a timeline if the provider allows that party
+  to append to that timeline. Documents that later consume those entries decide whether the messages are relevant,
+  valid, authorized, or policy-compliant.
 
-  Timeline entries are hash-linked using `prevEntry`, making historical tampering detectable. A blockchain, managed
-  platform, bank, government identity service, or local provider may all serve as timeline storage, provided they define
-  how entries are ordered, how finality/completeness is established, and how actor attribution is guaranteed. The
-  `timelineId` field is the stable application-defined identifier used by channels and providers to locate this timeline.
+  Completeness is the guarantee that makes deterministic multi-party processing possible. When a provider says there
+  are no entries with timestamp less than T, it is also promising that future entries it accepts will not be assigned a
+  timestamp less than T. A managed provider can preserve this by assigning monotonically advancing timestamps. A
+  blockchain-backed provider can provide the same kind of guarantee only for finalized history and must define the
+  finality rule. Completeness is about ordering and absence of earlier entries; it is not a claim that message content
+  is semantically valid for a particular Blue document.
+
+  Timeline entries are normally hash-linked through `prevEntry`, making tampering detectable. Timestamps establish
+  ordering; actor and source fields establish attribution; message contains the Blue payload. A Blue processor may use
+  entries from several timelines, but it should do so only after the relevant providers or finalized stores establish a
+  complete processing window. This lets independent processors merge individual perspectives deterministically without
+  global consensus.
 timelineId:
   type: Text
   description: |
-    Stable provider- or application-defined identifier of this timeline. A Timeline Channel uses this value, together with
-    provider-specific context, to locate entries. The identifier should not be reused for a different actor or history
-    because processors and auditors treat the timeline as one append-only perspective.
+    Stable provider- or application-defined identifier for this timeline. The identifier is used by channels, providers,
+    auditors, and participants to locate the append-only log. It should not be reused for a different history or owner
+    because readers treat all entries under the same identifier as one timeline perspective.
