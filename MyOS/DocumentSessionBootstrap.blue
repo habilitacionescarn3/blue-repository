@@ -75,11 +75,8 @@ contracts:
           - $if:
               cond:
                 $not:
-                  $is:
-                    node:
-                      $event: /
-                    pattern:
-                      type: MyOS/Participant Resolved
+                  $exists:
+                    $event: /channelName
               then:
                 - $return:
                     changeset: []
@@ -121,11 +118,8 @@ contracts:
           - $if:
               cond:
                 $not:
-                  $is:
-                    node:
-                      $event: /
-                    pattern:
-                      type: MyOS/Target Document Session Started
+                  $exists:
+                    $event: /initiatorSessionIds
               then:
                 - $return:
                     changeset: []
@@ -158,11 +152,8 @@ contracts:
           - $if:
               cond:
                 $not:
-                  $is:
-                    node:
-                      $event: /
-                    pattern:
-                      type: MyOS/Bootstrap Failed
+                  $exists:
+                    $event: /reason
               then:
                 - $return:
                     changeset: []
@@ -194,4 +185,5 @@ contracts:
         changeset:
           - op: replace
             path: /bootstrapStatus
-            val: "${event.status}"
+            val:
+              $event: /status

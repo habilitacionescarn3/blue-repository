@@ -113,12 +113,6 @@ contracts:
           validate:
             do:
               - $let:
-                  order:
-                    - issues
-                    - seenWorkerTypes
-                    - granterId
-                    - granteeDocumentId
-                    - permissionsList
                   vars:
                     issues: []
                     seenWorkerTypes:

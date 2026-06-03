@@ -158,13 +158,6 @@ contracts:
                   expr:
                     events: []
               - $let:
-                  order:
-                    - issues
-                    - target
-                    - granterId
-                    - granteeDocumentId
-                    - links
-                    - anchorCount
                   vars:
                     issues: []
                     target:

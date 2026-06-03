@@ -154,13 +154,6 @@ contracts:
           validate:
             do:
               - $let:
-                  order:
-                    - issues
-                    - target
-                    - granterId
-                    - granteeId
-                    - links
-                    - anchorCount
                   vars:
                     issues: []
                     target:
