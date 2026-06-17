@@ -11,3 +11,8 @@ message:
   type: Text
   description: |
     Textual content of the message. Exact spelling, whitespace, and Unicode code points are part of the Blue value.
+replyTo:
+  type: Coordination/Timeline Entry
+  description: |
+    Optional timeline entry this chat message replies to or comments on. In concrete documents this may be represented
+    by the full Timeline Entry object or by a BlueId reference to that entry.
